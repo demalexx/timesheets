@@ -1,0 +1,35 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: Timesheet
+file_extensions: [] 
+scope: text.timesheet
+
+contexts:
+  main:
+    # case-insensitive "end of month" comment
+    - match: '#\s*(?i)eom.*$' 
+      scope: constant.other.placeholder
+    # comment from # till end of line
+    - match: '#.*$' 
+      scope: comment
+    # whole timesheet line from beginning to end (rt)
+    # if timesheet line is invalid, even in single char, no color applied - user could see it and fix
+    - match: '^(\d{4}-\d{2}-\d{2}),(\d{2}:\d{2}),(\d{2}:\d{2}|[\s]*),([^,]+),(RT:)(\d+),("[^"]*")$'
+      captures:
+        1: keyword.control
+        2: entity.name.function
+        3: constant.numeric
+        4: variable.parameter
+        5: comment
+        6: variable.function
+        7: string
+    # whole timesheet line from beginning to end (jira)
+    # if timesheet line is invalid, even in single char, no color applied - user could see it and fix
+    - match: '^(\d{4}-\d{2}-\d{2}),(\d{2}:\d{2}),(\d{2}:\d{2}|[\s]*),([\w_\-\d]+),("[^"]*")$'
+      captures:
+        1: keyword.control
+        2: entity.name.function
+        3: constant.numeric
+        4: variable.function
+        5: string

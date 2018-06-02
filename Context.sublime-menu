@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Goto Ticket",
+        "command": "goto_ticket"
+    }
+]
