@@ -1,0 +1,10 @@
+[
+    {
+        "keys": ["ctrl+alt+i"],
+        "command": "timesheets_checkout"
+    },
+    {
+        "keys": ["ctrl+alt+o"],
+        "command": "timesheets_commit"
+    }
+]

@@ -1,5 +1,25 @@
 [
     {
+        "id": "tools",
+        "children": [
+            {
+                "id": "end",
+                "caption": "-",
+            },
+            {
+                "caption": "Timesheets: Checkout",
+                "command": "timesheets_checkout"
+            },
+            {
+                "caption": "Timesheets: Commit",
+                "command": "timesheets_commit"
+            },
+            {
+                "caption": "-",
+            }
+        ]
+    },
+    {
         "id": "preferences",
         "children": [
             {
@@ -31,7 +51,7 @@
                                 "caption": "Settings",
                                 "command": "edit_settings",
                                 "args": {
-                                    "base_file": "${packages}/timesheets/timesheets.sublime-settings",
+                                    "base_file": "${packages}/timesheets/settings/timesheets.sublime-settings",
                                     "default": "{\n\t$0\n}\n"
                                 }
                             },
@@ -39,10 +59,18 @@
                                 "caption": "Key Bindings",
                                 "command": "edit_settings",
                                 "args": {
-                                    "base_file": "${packages}/timesheets/Default (${platform}).sublime-mousemap",
+                                    "base_file": "${packages}/timesheets/settings/Default (${platform}).sublime-keymap",
                                     "default": "[\n\t$0\n]\n"
                                 }
                             },
+                            {
+                                "caption": "Mouse Bindings",
+                                "command": "edit_settings",
+                                "args": {
+                                    "base_file": "${packages}/timesheets/settings/Default (${platform}).sublime-mousemap",
+                                    "default": "[\n\t$0\n]\n"
+                                }
+                            }
                         ]
                     }
                 ]

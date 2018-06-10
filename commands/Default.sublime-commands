@@ -1,0 +1,22 @@
+[
+    {
+        "caption": "Preferences: Timesheets Settings",
+        "command": "edit_settings",
+        "args": {
+            "base_file": "${packages}/timesheets/settings/timesheets.sublime-settings",
+            "default": "{\n\t$0\n}\n"
+        }
+    },
+    {
+        "caption": "Goto Ticket",
+        "command": "goto_ticket"
+    },
+    {
+        "caption": "Timesheets: Checkout",
+        "command": "timesheets_checkout"
+    },
+    {
+        "caption": "Timesheets: Commit",
+        "command": "timesheets_commit"
+    }
+]

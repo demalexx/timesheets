@@ -1,0 +1,18 @@
+{
+    // Use shell_cmd because timesheet-related env vars
+    // should be loaded from .bash_profile (CVS_RSH, CVSROOT)
+    "shell_cmd": "echo 'Checking out timesheets' && cd ~ && cvs checkout iponweb/admin/timesheet",
+    "env": {
+        // tput in .bash_profile complains if TERM isn't set
+        "TERM": "dumb"
+    },
+    "variants": [
+        {
+            "name": "Checkout"
+        },
+        {
+            "name": "Commit",
+            "shell_cmd": "echo 'Committing timesheet' && cd ~ && cvs commit -m '' iponweb/admin/timesheet/$file_name",
+        }
+    ]
+}
