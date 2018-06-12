@@ -6,5 +6,20 @@
     {
         "keys": ["ctrl+alt+o"],
         "command": "timesheets_commit"
+    },
+
+    {
+        "keys": ["alt+d"],
+        "command": "duplicate_timesheet_line",
+        "args": {
+            "copy_issue_and_comment": true
+        }
+    },
+    {
+        "keys": ["alt+shift+d"],
+        "command": "duplicate_timesheet_line",
+        "args": {
+            "copy_issue_and_comment": false
+        }
     }
 ]

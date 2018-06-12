@@ -1,3 +1,12 @@
+# 0.3.0 (2018-06-12)
+
+* Added feature to insert timesheet lines
+  based on already existing lines and fill time fields,
+  using single shortcut (improved "duplicate line");
+* Improved syntax highlight: now it doesn't highlight
+  lines with invalid dates and times (e.g. "2018-13-35", "24:60").
+  Still it's still just dumb regexp.
+
 # 0.2.0 (2018-06-10)
 
 * Added feature to checkout and commit timesheets

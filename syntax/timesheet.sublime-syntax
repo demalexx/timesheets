@@ -26,10 +26,10 @@ contexts:
         7: string
     # whole timesheet line from beginning to end (jira)
     # if timesheet line is invalid, even in single char, no color applied - user could see it and fix
-    - match: '^(\d{4}-\d{2}-\d{2}),(\d{2}:\d{2}),(\d{2}:\d{2}|[\s]*),([\w_\-\d]+),("[^"]*")$'
+    - match: '^(\d{4}-([0][1-9]|[1][0-2])-(0[1-9]|[1-2][0-9]|3[0-1])),((0[0-9]|1[0-9]|2[0-4]):([0-5][0-9])),(((0[0-9]|1[0-9]|2[0-4]):([0-5][0-9]))|[\s]*),([\w_\-\d]+),("[^"]*")$'
       captures:
         1: keyword.control
-        2: entity.name.function
-        3: constant.numeric
-        4: variable.function
-        5: string
+        4: entity.name.function
+        7: constant.numeric
+        11: variable.function
+        12: string

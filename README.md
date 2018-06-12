@@ -6,7 +6,8 @@ Features:
 * Syntax highlight;
 * Can open ticket, that's under cursor, in browser;
 * Can checkout and commit timesheets from Sublime Text
-  (using Sublime's Build System).
+  (using Sublime's Build System);
+* Help add new timesheet lines using single shortcut key.
 
 ![Screenshot](images/screenshot.png)
 
@@ -75,12 +76,79 @@ After command is run output panel with results will appear.
 
 ![Commit](images/commit.png)
 
+## Shortcut to add timesheet lines
+
+In two words shortcut `Alt+D` (customizable) takes timesheet line
+under the cursor, clones it, modifies to reflect current date/time
+and appends it to proper place. Also it fills empty time_to field.
+
+It's easier to describe it throught examples.
+Suppose today is 2018-01-10 10:03, "|" represents cursor position.
+
+Before:
+```
+2018-01-01,10:00,12:00,PROJECT-123,"working|"
+```
+
+After:
+```
+2018-01-01,10:00,12:00,PROJECT-123,"working"
+
+2018-01-10,10:00,     ,PROJECT-123,"working|"
+```
+
+- New line is inserted as separator between days;
+- Original issue and comment is copied;
+- Today is inserted;
+- Current time is rounded and inserted as time_from;
+- time_to field is left blank.
+
+Suppose now is 11:08.
+
+Before:
+```
+2018-01-01,10:00,12:00,PROJECT-123,"working"
+
+2018-01-10,10:00,     ,PROJECT-123,"working|"
+```
+
+After:
+```
+2018-01-01,10:00,12:00,PROJECT-123,"working"
+
+2018-01-10,10:00,11:10,PROJECT-123,"working"
+2018-01-10,11:10,     ,PROJECT-123,"working|"
+```
+
+- New line is not inserted because it's same day;
+- Original issue and comment is copied;
+- Empty time_to is filled with rounded current time;
+- time_to of original line is inserted as time_from;
+- time_to field is left blank.
+
+There is another shortcut `Alt+Shift+D` which does all the same
+but doesn't copy issue and comment.
+
+Before:
+```
+2018-01-01,10:00,12:00,|PROJECT-123,"working"
+```
+
+After:
+```
+2018-01-01,10:00,12:00,PROJECT-123,"working"
+
+2018-01-10,10:00,     ,|,""
+```
+
+This shortcuts work only with Jira lines.
+
 # Customization
 
 Plugin has few URLs settings accessible in
 `Preferences → Package Settings → Timesheets → Settings`:
 
-```json
+```javascript
 {
     // Request Tracker (RT) ticket URL, e.g.
     // "https://rt.example.com/Ticket/Display.html?id={}"
@@ -119,6 +187,21 @@ Key bindings could be changed in
     {
         "keys": ["ctrl+alt+o"],
         "command": "timesheets_commit"
+    },
+
+    {
+        "keys": ["alt+d"],
+        "command": "duplicate_timesheet_line",
+        "args": {
+            "copy_issue_and_comment": true
+        }
+    },
+    {
+        "keys": ["alt+shift+d"],
+        "command": "duplicate_timesheet_line",
+        "args": {
+            "copy_issue_and_comment": false
+        }
     }
 ]
 ```
