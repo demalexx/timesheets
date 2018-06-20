@@ -1,0 +1,49 @@
+// SYNTAX TEST "Packages/timesheets/syntax/timesheet.sublime-syntax"
+
+# comment
+// <- text.timesheet comment
+// ^^^^^^ text.timesheet comment
+
+# eom 2018-05
+// <- text.timesheet constant.other.placeholder
+// ^^^^^^^^^^ text.timesheet constant.other.placeholder
+
+# EOM 2018-05
+// <- text.timesheet constant.other.placeholder
+// ^^^^^^^^^^ text.timesheet constant.other.placeholder
+
+2018-06-01,10:00,12:00,PROJECT_NAME-123,"comment"
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^^^^^^^^^ text.timesheet string
+
+2018-06-01,10:00,     ,PROJECT_NAME-123,"comment"
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^^^^^^^^^ text.timesheet string
+
+2018-06-01,10:00,12:00,rt-queue,RT:123,"comment"
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^ text.timesheet variable.parameter
+//                              ^^^ text.timesheet comment
+//                                 ^^^ text.timesheet variable.function
+//                                     ^^^^^^^^^ text.timesheet string
+
+2018-06-01,10:00,     ,rt-queue,RT:123,"comment"
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^ text.timesheet variable.parameter
+//                              ^^^ text.timesheet comment
+//                                 ^^^ text.timesheet variable.function
+//                                     ^^^^^^^^^ text.timesheet string
