@@ -2,5 +2,12 @@
     {
         "caption": "Goto Ticket",
         "command": "goto_ticket"
+    },
+    {
+        "caption": "Duplicate Timesheet Line",
+        "command": "duplicate_timesheet_line",
+        "args": {
+            "copy_issue_and_comment": true
+        }
     }
 ]

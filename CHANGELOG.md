@@ -1,3 +1,10 @@
+# 0.4.0 (2018-07-10)
+
+* Added info about how much time is worked today into status bar;
+* Fixed bug when SublimeLinter is installed
+  (it crashed when timesheets plugin is installed);
+* Added syntax and unit tests.
+
 # 0.3.0 (2018-06-12)
 
 * Added feature to insert timesheet lines

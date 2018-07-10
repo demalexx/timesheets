@@ -1,18 +1,28 @@
-import re
 import webbrowser
 
 import sublime
 import sublime_plugin
 
+from timesheets.typing.typing import Optional
+from timesheets.helpers import SublimeHelper, TimesheetHelper
+
 
 class GotoTicketCommand(sublime_plugin.TextCommand):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.sublime_helper = SublimeHelper(self.view)
+        self.timesheet_helper = TimesheetHelper(self.sublime_helper)
+
     def run(self, edit):
         """Entry-point, called when command is executed"""
-        line_content = self.get_current_line_content()
-        ticket_info = self.extract_ticket_from_str(line_content)
+        line_content = self.sublime_helper.get_current_line_content()
+        timesheet_info = self.timesheet_helper.extract_timesheet_info(
+            line_content
+        )
 
-        if ticket_info:
-            ticket_url = self.generate_ticket_url(ticket_info)
+        if timesheet_info:
+            ticket_url = self.generate_ticket_url(timesheet_info)
 
             if ticket_url:
                 self.view.window().status_message(
@@ -31,37 +41,9 @@ class GotoTicketCommand(sublime_plugin.TextCommand):
         and Goto Ticket menu item should appear.
         Return False otherwise.
         """
-        line_content = self.get_current_line_content()
-        return bool(self.extract_ticket_from_str(line_content))
+        return self.timesheet_helper.is_valid_timesheet_under_cursor()
 
-    def get_current_line_content(self) -> str:
-        """
-        Return content of line where cursor is placed.
-        If there are few cursors, use only first cursor.
-        """
-        current_selection = self.view.sel()[0]
-        line = self.view.line(current_selection)
-        return self.view.substr(line)
-
-    def extract_ticket_from_str(self, content: str) -> tuple:
-        """
-        Extract ticket info from given `content`
-        and return it as tuple ("<bug tracker>", "<ticket id>").
-        Ticket should be placed between commas.
-        Supported formats:
-        - RT ("RT:<ticket id>", e.g. "RT:12345");
-        - Jira ("<project>-<id>", e.g. "PROJECT_NAME-123").
-        If ticket info doesn't exist, return None.
-        """
-        match = re.search(r',RT:(\d+),', content)
-        if match:
-            return ('rt', match.group(1))
-
-        match = re.search(r',([\w_]+-\d+),', content)
-        if match:
-            return ('jira', match.group(1))
-
-    def generate_ticket_url(self, ticket_info: tuple) -> str:
+    def generate_ticket_url(self, timesheet_info: dict) -> Optional[str]:
         """
         Generate and return ticket URL to given `ticket_info`.
         If required setting isn't set, or doesn't have template,
@@ -69,7 +51,7 @@ class GotoTicketCommand(sublime_plugin.TextCommand):
         """
         error_prefix = 'Timesheets plugin'
 
-        bug_tracker, ticket_id = ticket_info
+        bug_tracker, ticket_id = timesheet_info['issue']
 
         settings = sublime.load_settings('timesheets.sublime-settings')
 

@@ -7,7 +7,8 @@ Features:
 * Can open ticket, that's under cursor, in browser;
 * Can checkout and commit timesheets from Sublime Text
   (using Sublime's Build System);
-* Help add new timesheet lines using single shortcut key.
+* Help add new timesheet lines using single shortcut key;
+* Show how much time is worked today in status bar.
 
 ![Screenshot](images/screenshot.png)
 
@@ -15,7 +16,7 @@ Both RT and Jira tickets are supported.
 
 # Installation
 
-Copy file `timesheets.sublime-package` into
+Copy file `release/timesheets.sublime-package` into
 `<data_path>/Installed Packages/` folder:
 
 * `~/Library/Application Support/Sublime Text 3/Installed Packages/`
@@ -141,7 +142,21 @@ After:
 2018-01-10,10:00,     ,|,""
 ```
 
-This shortcuts work only with Jira lines.
+These shortcuts work only with Jira lines.
+
+## Info about how much time is worked today in status bar
+
+This info is shown automatically.
+Updating is triggered by following events:
+* Tab activation (by switching to timesheet file from another tab,
+  or by switching to Sublime window with opened timesheet
+  from another window);
+* File save.
+
+Examples: `Worked today 02:35` (hours:minutes), `Not worked today`.
+
+If timesheet line has empty time_to field,
+it's considered as current time.
 
 # Customization
 
