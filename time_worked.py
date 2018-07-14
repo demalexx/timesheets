@@ -5,7 +5,9 @@ from timesheets.helpers import SublimeHelper, TimesheetHelper
 
 
 class TimeWorked(sublime_plugin.ViewEventListener):
-    """Display today worked time in status bar for opened timesheet file."""
+    """
+    Display today and week worked time in status bar for opened timesheet file.
+    """
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -47,12 +49,11 @@ class TimeWorked(sublime_plugin.ViewEventListener):
     def update_worked_message(self):
         """Calculate and update worked today time in status bar."""
         worked_today_minutes = self.timesheet_helper.worked_today_minutes()
+        worked_week_minutes = self.timesheet_helper.worked_week_minutes()
 
-        if worked_today_minutes:
-            message = 'Worked today {}'.format(
-                prettify_minutes(worked_today_minutes)
-            )
-        else:
-            message = 'Not worked today'
+        message = 'Worked today {}, week {}'.format(
+            prettify_minutes(worked_today_minutes),
+            prettify_minutes(worked_week_minutes),
+        )
 
         self.view.set_status('timesheet', message)

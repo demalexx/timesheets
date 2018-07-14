@@ -8,7 +8,7 @@ Features:
 * Can checkout and commit timesheets from Sublime Text
   (using Sublime's Build System);
 * Help add new timesheet lines using single shortcut key;
-* Show how much time is worked today in status bar.
+* Show how much time is worked today and this week in status bar.
 
 ![Screenshot](images/screenshot.png)
 
@@ -144,7 +144,7 @@ After:
 
 These shortcuts work only with Jira lines.
 
-## Info about how much time is worked today in status bar
+## Info about how much time is worked today and this week in status bar
 
 This info is shown automatically.
 Updating is triggered by following events:
@@ -153,7 +153,7 @@ Updating is triggered by following events:
   from another window);
 * File save.
 
-Examples: `Worked today 02:35` (hours:minutes), `Not worked today`.
+Examples: `Worked today 02:35, week 10:35` (hours:minutes).
 
 If timesheet line has empty time_to field,
 it's considered as current time.

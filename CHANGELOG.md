@@ -1,3 +1,7 @@
+# 0.5.0 (2018-07-14)
+
+* Also show how much time is worked this week.
+
 # 0.4.0 (2018-07-10)
 
 * Added info about how much time is worked today into status bar;

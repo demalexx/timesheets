@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+from freezegun import freeze_time
+
 from timesheets.tests.base import BasePluginTestCase
 
 
@@ -173,3 +175,44 @@ class TestIsTimesheet(BasePluginTestCase):
             self.get_invalid_line()
         ))
         self.assertTrue(self.timesheet_helper.is_timesheet())
+
+
+@freeze_time('2018-07-01 12:00')
+class TestWorkedToday(BasePluginTestCase):
+    def test_single_line(self):
+        self.append_text('2018-07-01,10:00,11:10,PROJECT-123,"comment"')
+        self.assertEqual(self.timesheet_helper.worked_today_minutes(), 70)
+
+    def test_unfinished_line(self):
+        self.append_text('2018-07-01,10:00,     ,PROJECT-123,"comment"')
+        self.assertEqual(self.timesheet_helper.worked_today_minutes(), 120)
+
+    def test_finished_and_unfinished_lines(self):
+        self.append_text(
+            '2018-07-01,10:00,10:10,PROJECT-123,"comment"\n'
+            '2018-07-01,11:00,     ,PROJECT-123,"comment"'
+        )
+
+        self.assertEqual(self.timesheet_helper.worked_today_minutes(), 10 + 60)
+
+    def test_not_today(self):
+        self.append_text('2018-07-02,10:00,11:10,PROJECT-123,"comment"')
+        self.assertEqual(self.timesheet_helper.worked_today_minutes(), 0)
+
+
+@freeze_time('2018-07-10 12:00')
+class TestWorkedThisWeek(BasePluginTestCase):
+    """Today (2018-07-10) is set to tuesday."""
+
+    def test_this_week(self):
+        """
+        Week before isn't counted.
+        Only 2018-07-10 (tuesday) and 2018-07-09 (monday) are counted.
+        2018-07-08 (sunday of week before) isn't counted.
+        """
+        self.append_text(
+            '2018-07-08,10:00,11:10,PROJECT-123,"comment"\n'
+            '2018-07-09,10:00,11:10,PROJECT-123,"comment"\n'
+            '2018-07-10,10:00,11:10,PROJECT-123,"comment"\n'
+        )
+        self.assertEqual(self.timesheet_helper.worked_week_minutes(), 70 + 70)

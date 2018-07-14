@@ -3,7 +3,7 @@ from datetime import datetime
 
 import sublime
 
-from timesheets.typing.typing import Optional, Generator, Iterable
+from timesheets.typing.typing import Optional, Generator, Iterable, List
 
 
 class SublimeHelper:
@@ -188,13 +188,42 @@ class TimesheetHelper:
             else:
                 break
 
+        return self.timesheets_info_to_minutes(today_timesheet_info)
+
+    def worked_week_minutes(self) -> float:
+        """
+        Iterate lines backward and count how much time is worked this week.
+        """
+        week_timesheet_info = []
+
+        today_year, today_week, _ = datetime.today().isocalendar()
+
+        for line in self.sublime_helper.iter_lines_reversed():
+            timesheet_info = self.extract_timesheet_info(line)
+            if not timesheet_info:
+                continue
+
+            line_year, line_week, _ = timesheet_info['from_dt'].isocalendar()
+
+            if line_year == today_year and line_week == today_week:
+                week_timesheet_info.append(timesheet_info)
+            else:
+                break
+
+        return self.timesheets_info_to_minutes(week_timesheet_info)
+
+    def timesheets_info_to_minutes(self, timesheets_info:  List[dict]) -> float:
+        """
+        Return how much time is worked based on given list
+        of timesheet info objects.
+        """
         worked_minutes = 0
-        for timesheet_info in today_timesheet_info:
+        for timesheet_info in timesheets_info:
             to_dt = timesheet_info['to_dt'] or datetime.now()
-            line_worked_minutes = (
+            timesheet_line_worked_minutes = (
                 to_dt - timesheet_info['from_dt']
             ).total_seconds() / 60
-            worked_minutes += line_worked_minutes
+            worked_minutes += timesheet_line_worked_minutes
 
         return worked_minutes
 
