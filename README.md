@@ -1,5 +1,8 @@
 # Timesheets
 
+[![Build Status](https://travis-ci.org/demalexx/timesheets.svg?branch=master)](https://travis-ci.org/demalexx/timesheets)
+[![codecov](https://codecov.io/gh/demalexx/timesheets/branch/master/graph/badge.svg)](https://codecov.io/gh/demalexx/timesheets)
+
 Sublime Text 3 package to help working with IPONWEB timesheets.
 Features:
 
