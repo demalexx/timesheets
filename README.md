@@ -161,6 +161,26 @@ Examples: `Worked today 02:35, week 10:35` (hours:minutes).
 If timesheet line has empty time_to field,
 it's considered as current time.
 
+## JIRA completion
+
+This plugin helps you complete JIRA issue number by fuzzy matching issue title.
+To display completion popup, type "JI" and press `Alt-/`. Keep typing to further
+narrow candidates down. Press `Tab` to insert issue number:
+
+![JIRA completion](images/jira_completion.png)
+
+There is a caveat, though: request to JIRA server is currently synchronous, so
+it will block the editor. For this reason it is currently not activated
+automatically. You need to press `Alt-/` to request and display JIRA candidates
+from JIRA server.
+
+The plugin grabs your username and password from netrc file, so be sure to put
+your credentials and your JIRA hostname into netrc file in the following format:
+
+```
+machine jira.iponweb.net login vpetrov password topsecretpassword
+```
+
 # Customization
 
 Plugin has few URLs settings accessible in
@@ -174,7 +194,21 @@ Plugin has few URLs settings accessible in
 
     // Jira ticket URL, e.g.
     // "https://jira.example.com/browse/{}"
-    "jira_ticket_url": "https://jira.iponweb.net/browse/{}"
+    "jira_ticket_url": "https://jira.iponweb.net/browse/{}",
+
+    // JIRA endpoint that will be called to gather completion candidates.
+    // Feel free to adjust the query and the number of results here.
+    "jira_completion_url": "https://jira.iponweb.net/rest/api/2/search?jql=(labels+in+(nbt,sft)+OR+watcher+in+({username})+OR+assignee+in+({username})+OR+reporter+in+({username}))+ORDER+BY+updated+DESC,+created+DESC&maxResults=100&fields=id,key,summary",
+
+    // Filename where to put internal messages. If not set or empty,
+    // messages are not logged.
+    //"log_filename": "/tmp/sublime_jira_completion.log",
+
+    // Trigger that activates the completion.
+    "trigger": "JI",
+
+    // Network timeout.
+    "timeout": 5
 }
 ```
 
