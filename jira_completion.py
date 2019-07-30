@@ -26,6 +26,7 @@ import sublime_plugin
 import urllib
 
 from urllib.error import HTTPError
+from urllib.parse import urlparse
 
 
 class Settings:
@@ -34,7 +35,7 @@ class Settings:
 
     @property
     def hostname(self):
-        return self._settings.get('hostname', 'jira.iponweb.net')
+        return urlparse(self.jira_completion_url).netloc
 
     @property
     def trigger(self):
