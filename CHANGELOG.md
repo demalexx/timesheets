@@ -1,3 +1,7 @@
+# 0.6.0 (2019-07-30)
+
+* Add completion of JIRA issue number by ticket title.
+
 # 0.5.0 (2018-07-14)
 
 * Also show how much time is worked this week.
