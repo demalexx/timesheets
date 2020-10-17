@@ -1,3 +1,11 @@
+# 1.0.0 (2020-10-xx)
+
+* Updated syntax highlight: 
+  support comments without quotes, 
+  support activity (DEV/MET/etc);
+* Removed supporting RT;
+* Removed build systems (checkout and commit, not applicable anymore).
+
 # 0.5.0 (2018-07-14)
 
 * Also show how much time is worked this week.

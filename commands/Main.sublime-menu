@@ -1,25 +1,5 @@
 [
     {
-        "id": "tools",
-        "children": [
-            {
-                "id": "end",
-                "caption": "-",
-            },
-            {
-                "caption": "Timesheets: Checkout",
-                "command": "timesheets_checkout"
-            },
-            {
-                "caption": "Timesheets: Commit",
-                "command": "timesheets_commit"
-            },
-            {
-                "caption": "-",
-            }
-        ]
-    },
-    {
         "id": "preferences",
         "children": [
             {

@@ -64,7 +64,7 @@ class DuplicateTimesheetLineCommand(sublime_plugin.TextCommand):
             extra_newline = True
 
         # Compose new timesheet line content
-        new_timesheet_line_content = '\n{},{},{},{},"{}"'.format(
+        new_timesheet_line_content = '\n{},{},{},{},{}'.format(
             new_time_to.strftime('%Y-%m-%d'),
             new_time_to.strftime('%H:%M'),
             ' ' * len('12:00'),

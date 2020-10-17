@@ -26,14 +26,14 @@ class BasePluginTestCase(TestCase):
             self.view.window().run_command('close_file')
 
     def get_valid_line(self):
-        valid_line = '2018-07-01,10:00,12:10,PROJECT-123,"comment"'
+        valid_line = '2018-07-01,10:00,12:10,PROJECT-123,comment'
         self.assertTrue(
             self.timesheet_helper.extract_timesheet_info(valid_line)
         )
         return valid_line
 
     def get_invalid_line(self):
-        invalid_line = '2018-07-01 10:00 12:10 PROJECT-123 "comment"'
+        invalid_line = '2018-07-01 10:00 12:10 PROJECT-123 comment'
         self.assertFalse(
             self.timesheet_helper.extract_timesheet_info(invalid_line)
         )

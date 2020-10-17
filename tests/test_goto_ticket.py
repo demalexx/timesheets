@@ -26,19 +26,6 @@ class TestGotoTicket(BasePluginTestCase):
             expected_url
         )
 
-    def test_rt_url(self):
-        timesheet_info = self.timesheet_helper.extract_timesheet_info(
-            '2018-07-01,10:00,11:10,queue,RT:123,"comment"'
-        )
-
-        ticket_url_template = self.settings.get('{}_ticket_url'.format('rt'))
-        expected_url = ticket_url_template.format('123')
-
-        self.assertEqual(
-            self.command.generate_ticket_url(timesheet_info),
-            expected_url
-        )
-
     def test_jira_url_opening(self):
         self.append_text('2018-07-01,10:00,11:10,PROJECT-123,"comment"')
         self.move_cursor(0, 0)
@@ -46,19 +33,6 @@ class TestGotoTicket(BasePluginTestCase):
         settings = sublime.load_settings('timesheets.sublime-settings')
         ticket_url_template = settings.get('{}_ticket_url'.format('jira'))
         ticket_url = ticket_url_template.format('PROJECT-123')
-
-        with patch('timesheets.goto_ticket.webbrowser.open') as open_mock:
-            self.view.run_command('goto_ticket')
-
-            open_mock.assert_called_once_with(ticket_url)
-
-    def test_rt_url_opening(self):
-        self.append_text('2018-07-01,10:00,11:10,queue,RT:123,"comment"')
-        self.move_cursor(0, 0)
-
-        settings = sublime.load_settings('timesheets.sublime-settings')
-        ticket_url_template = settings.get('{}_ticket_url'.format('rt'))
-        ticket_url = ticket_url_template.format('123')
 
         with patch('timesheets.goto_ticket.webbrowser.open') as open_mock:
             self.view.run_command('goto_ticket')
@@ -74,8 +48,7 @@ class TestIsVisibleAndCommand(BasePluginTestCase):
         self.lines = [
             # Valid Jira
             ('2018-07-01,10:00,11:10,PROJECT-123,"comment"', True),
-            # Valid RT
-            ('2018-07-01,10:00,11:10,queue,RT:123,"comment"', True),
+            ('2018-07-01,10:00,11:10,PROJECT-123,comment', True),
             # Comment
             ('# comment', False),
             # Empty string

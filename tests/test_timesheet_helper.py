@@ -18,8 +18,8 @@ class TestTimesheetHelper(BasePluginTestCase):
         self.append_text('2018-07-01,10:00,12:10,PROJECT-123,"comment"')
         self.assertTrue(self.timesheet_helper.is_valid_timesheet_under_cursor())
 
-    def test_is_valid_timesheet_under_cursor_rt(self):
-        self.append_text('2018-07-01,10:00,12:10,queue,RT:123,"comment"')
+    def test_is_valid_timesheet_under_cursor_jira_no_comment(self):
+        self.append_text('2018-07-01,10:00,12:10,PROJECT-123,comment')
         self.assertTrue(self.timesheet_helper.is_valid_timesheet_under_cursor())
 
     def test_is_not_valid_timesheet_under_cursor(self):
@@ -68,6 +68,18 @@ class TestExtractTimesheetInfo(BasePluginTestCase):
                 'from_dt': datetime(2018, 7, 1, 10, 0),
                 'to_dt': datetime(2018, 7, 1, 12, 10),
                 'issue': ('jira', 'PROJECT-123'),
+                'comment': '"comment"',
+            }
+        )
+
+    def test_jira_no_quotes(self):
+        self.assertEqual(
+            self.timesheet_helper.extract_timesheet_info(
+                '2018-07-01,10:00,12:10,PROJECT-123,comment'
+            ), {
+                'from_dt': datetime(2018, 7, 1, 10, 0),
+                'to_dt': datetime(2018, 7, 1, 12, 10),
+                'issue': ('jira', 'PROJECT-123'),
                 'comment': 'comment',
             }
         )
@@ -80,7 +92,7 @@ class TestExtractTimesheetInfo(BasePluginTestCase):
                 'from_dt': datetime(2018, 7, 1, 10, 0),
                 'to_dt': None,
                 'issue': ('jira', 'PROJECT-123'),
-                'comment': 'comment',
+                'comment': '"comment"',
             }
         )
 
@@ -91,42 +103,7 @@ class TestExtractTimesheetInfo(BasePluginTestCase):
                 'from_dt': datetime(2018, 7, 1, 10, 0),
                 'to_dt': None,
                 'issue': ('jira', 'PROJECT-123'),
-                'comment': 'comment',
-            }
-        )
-
-    def test_rt(self):
-        self.assertEqual(
-            self.timesheet_helper.extract_timesheet_info(
-                '2018-07-01,10:00,12:10,queue,RT:123,"comment"'
-            ), {
-                'from_dt': datetime(2018, 7, 1, 10, 0),
-                'to_dt': datetime(2018, 7, 1, 12, 10),
-                'issue': ('rt', '123'),
-                'comment': 'comment',
-            }
-        )
-
-    def test_rt_empty_time_to(self):
-        self.assertEqual(
-            self.timesheet_helper.extract_timesheet_info(
-                '2018-07-01,10:00,,queue,RT:123,"comment"'
-            ), {
-                'from_dt': datetime(2018, 7, 1, 10, 0),
-                'to_dt': None,
-                'issue': ('rt', '123'),
-                'comment': 'comment',
-            }
-        )
-
-        self.assertEqual(
-            self.timesheet_helper.extract_timesheet_info(
-                '2018-07-01,10:00,     ,queue,RT:123,"comment"'
-            ), {
-                'from_dt': datetime(2018, 7, 1, 10, 0),
-                'to_dt': None,
-                'issue': ('rt', '123'),
-                'comment': 'comment',
+                'comment': '"comment"',
             }
         )
 

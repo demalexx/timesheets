@@ -1,8 +1,4 @@
 {
-    // Request Tracker (RT) ticket URL, e.g.
-    // "https://rt.example.com/Ticket/Display.html?id={}"
-    "rt_ticket_url": "https://www.iponweb.net/rt/Ticket/Display.html?id={}",
-
     // Jira ticket URL, e.g.
     // "https://jira.example.com/browse/{}"
     "jira_ticket_url": "https://jira.iponweb.net/browse/{}"

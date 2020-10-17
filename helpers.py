@@ -75,14 +75,13 @@ class TimesheetHelper:
         Try to extract timesheet info from given `line`.
         Return it as dict if content contains timesheet,
         or None otherwise.
-        Jira and partly RT lines are supported.
         """
         match = re.search(
             r'^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2}),'
             r'(?P<from_hour>\d{2}):(?P<from_min>\d{2}),'
             r'(?P<to>\d{2}:\d{2}|[\s]*),'
-            r'((?P<jira_issue>[\w_\-\d]+)|((?P<rt_queue>[^,]+),(RT:)(?P<rt_ticket_id>\d+))),'
-            r'"(?P<comment>[^"]*)"$',
+            r'(?P<jira_issue>[\w_\-\d]+),'
+            r'(?P<comment>.*)$',
             line
         )
 
@@ -116,16 +115,7 @@ class TimesheetHelper:
         else:
             to_dt = None
 
-        issue = None
-
-        jira_issue = match.group('jira_issue')
-        if jira_issue:
-            issue = ('jira', jira_issue)
-
-        rt_issue = match.group('rt_queue')
-        rt_ticket_id = match.group('rt_ticket_id')
-        if rt_issue and rt_ticket_id:
-            issue = ('rt', rt_ticket_id)
+        issue = ('jira', match.group('jira_issue'))
 
         return {
             'from_dt': from_dt,

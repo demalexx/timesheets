@@ -4,14 +4,7 @@
 // <- text.timesheet comment
 // ^^^^^^ text.timesheet comment
 
-# eom 2018-05
-// <- text.timesheet constant.other.placeholder
-// ^^^^^^^^^^ text.timesheet constant.other.placeholder
-
-# EOM 2018-05
-// <- text.timesheet constant.other.placeholder
-// ^^^^^^^^^^ text.timesheet constant.other.placeholder
-
+// Comment with quotes
 2018-06-01,10:00,12:00,PROJECT_NAME-123,"comment"
 // <- text.timesheet keyword.control
 // ^^^^^^^ text.timesheet keyword.control
@@ -20,30 +13,80 @@
 //                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
 //                                      ^^^^^^^^^ text.timesheet string
 
-2018-06-01,10:00,     ,PROJECT_NAME-123,"comment"
+// Comment with single quote
+2018-06-01,10:00,12:00,PROJECT_NAME-123,"comment
 // <- text.timesheet keyword.control
 // ^^^^^^^ text.timesheet keyword.control
 //         ^^^^^ text.timesheet entity.name.function
 //               ^^^^^ text.timesheet constant.numeric
 //                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
-//                                      ^^^^^^^^^ text.timesheet string
+//                                      ^^^^^^^^ text.timesheet string
 
-2018-06-01,10:00,12:00,rt-queue,RT:123,"comment"
+// Comment with single quote
+2018-06-01,10:00,12:00,PROJECT_NAME-123,comment"
 // <- text.timesheet keyword.control
 // ^^^^^^^ text.timesheet keyword.control
 //         ^^^^^ text.timesheet entity.name.function
 //               ^^^^^ text.timesheet constant.numeric
-//                     ^^^^^^^^ text.timesheet variable.parameter
-//                              ^^^ text.timesheet comment
-//                                 ^^^ text.timesheet variable.function
-//                                     ^^^^^^^^^ text.timesheet string
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^^^^^^^^ text.timesheet string
 
-2018-06-01,10:00,     ,rt-queue,RT:123,"comment"
+// Comment with quotes and activity
+2018-06-01,10:00,12:00,PROJECT_NAME-123,"DEV: comment"
 // <- text.timesheet keyword.control
 // ^^^^^^^ text.timesheet keyword.control
 //         ^^^^^ text.timesheet entity.name.function
 //               ^^^^^ text.timesheet constant.numeric
-//                     ^^^^^^^^ text.timesheet variable.parameter
-//                              ^^^ text.timesheet comment
-//                                 ^^^ text.timesheet variable.function
-//                                     ^^^^^^^^^ text.timesheet string
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^ text.timesheet string
+//                                       ^^^^ text.timesheet variable.parameter
+//                                           ^^^^^^^^^ text.timesheet string
+
+// Comment with quotes and activity
+2018-06-01,10:00,12:00,PROJECT_NAME-123,"DEV:comment"
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^ text.timesheet string
+//                                       ^^^^ text.timesheet variable.parameter
+//                                           ^^^^^^^^ text.timesheet string
+
+// Comment without quotes
+2018-06-01,10:00,12:00,PROJECT_NAME-123,comment
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^^^^^^^ text.timesheet string
+
+// Comment without quotes and activity
+2018-06-01,10:00,12:00,PROJECT_NAME-123,DEV: comment
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^^^^ text.timesheet variable.parameter
+//                                          ^^^^^^^^ text.timesheet string
+
+// Comment without quotes and activity
+2018-06-01,10:00,12:00,PROJECT_NAME-123,DEV:comment
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^^^^ text.timesheet variable.parameter
+//                                          ^^^^^^^ text.timesheet string
+
+// Empty date_to
+2018-06-01,10:00,     ,PROJECT_NAME-123,comment
+// <- text.timesheet keyword.control
+// ^^^^^^^ text.timesheet keyword.control
+//         ^^^^^ text.timesheet entity.name.function
+//               ^^^^^ text.timesheet constant.numeric
+//                     ^^^^^^^^^^^^^^^^ text.timesheet variable.function
+//                                      ^^^^^^^ text.timesheet string

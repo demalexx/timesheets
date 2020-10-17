@@ -1,5 +1,3 @@
-from datetime import datetime, timedelta
-
 import sublime
 
 from freezegun import freeze_time

@@ -129,6 +129,26 @@ class TestDuplicateTimesheetLineCommand(BasePluginTestCase):
             )
         )
 
+    def test_old_jira_under_cursor_no_quotes(self):
+        """
+        Duplicating old line adds newline-separator
+        and compose new line based on original line.
+        """
+        self.append_text('2018-07-01,10:00,12:10,PROJECT-123,comment\n')
+
+        self.move_cursor(0, 0)
+        self.view.run_command('duplicate_timesheet_line')
+
+        self.assertEqual(
+            self.get_text(),
+            '2018-07-01,10:00,12:10,PROJECT-123,comment\n'
+            '\n'
+            '{},{},     ,PROJECT-123,comment\n'.format(
+                self.today_str,
+                self.floor_time_str
+            )
+        )
+
     def test_old_jira_under_cursor_no_copy(self):
         """
         Duplicating old line without copying issue and comment
@@ -146,7 +166,7 @@ class TestDuplicateTimesheetLineCommand(BasePluginTestCase):
             self.get_text(),
             '2018-07-01,10:00,12:10,PROJECT-123,"comment"\n'
             '\n'
-            '{},{},     ,,""\n'.format(
+            '{},{},     ,,\n'.format(
                 self.today_str,
                 self.floor_time_str
             )

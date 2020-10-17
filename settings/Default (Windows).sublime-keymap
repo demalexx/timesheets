@@ -1,14 +1,5 @@
 [
     {
-        "keys": ["ctrl+alt+i"],
-        "command": "timesheets_checkout"
-    },
-    {
-        "keys": ["ctrl+alt+o"],
-        "command": "timesheets_commit"
-    },
-
-    {
         "keys": ["alt+d"],
         "command": "duplicate_timesheet_line",
         "args": {
