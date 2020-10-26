@@ -1,4 +1,4 @@
-# 1.0.0 (2020-10-xx)
+# 1.0.0 (2020-10-26)
 
 * Updated syntax highlight: 
   support comments without quotes, 
