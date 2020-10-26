@@ -27,7 +27,7 @@ script:
   # - sh travis.sh run_syntax_compatibility
 
 after_success:
-  - pip3 install codecov==2.1.10
+  - pip3 install coverage==5.3 codecov==2.1.10
   - codecov
 
 notifications:
