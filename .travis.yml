@@ -27,10 +27,7 @@ script:
   # - sh travis.sh run_syntax_compatibility
 
 after_success:
-  # remove the following if `coveralls` is not needed
-  - pip3 install python-coveralls;
-  - pip3 install coverage==4.5.4 codecov==2.0.15
-  - coveralls
+  - pip3 install codecov==2.1.10
   - codecov
 
 notifications:
